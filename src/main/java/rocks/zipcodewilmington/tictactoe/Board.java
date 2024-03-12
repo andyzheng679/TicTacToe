@@ -11,55 +11,89 @@ public class Board {
     }
 
     public Boolean isInFavorOfX() {
-        int xCounter = 0;
-        boolean xRowWinner = false;
-
-
-
+        // Check rows
         for(int i = 0; i < 3; i++){
+            int rowCounter = 0;
             for(int j = 0; j < 3; j++){
                 if(matrix[i][j] == 'X'){
-                    xCounter++;
+                    rowCounter++;
                 }
             }
-            if(xCounter == 3){
-                xRowWinner = true;
-            }
+            if(rowCounter == 3) return true;
         }
 
-        return xRowWinner;
+        // Check columns
+        for(int i = 0; i < 3; i++){
+            int colCounter = 0;
+            for(int j = 0; j < 3; j++){
+                if(matrix[j][i] == 'X'){
+                    colCounter++;
+                }
+            }
+            if(colCounter == 3) return true;
+        }
+
+        // Check left diagonal
+        if(matrix[0][0] == 'X' && matrix[1][1] == 'X' && matrix[2][2] == 'X') return true;
+
+        // Check right diagonal
+        if(matrix[0][2] == 'X' && matrix[1][1] == 'X' && matrix[2][0] == 'X') return true;
+
+        // No win found
+        return false;
     }
 
+
     public Boolean isInFavorOfO() {
-        int oCounter = 0;
-        boolean oRowWinner = false;
-
-
+        // Check rows
         for(int i = 0; i < 3; i++){
+            int rowCounter = 0;
             for(int j = 0; j < 3; j++){
                 if(matrix[i][j] == 'O'){
-                    oCounter++;
+                    rowCounter++;
                 }
             }
-            if(oCounter == 3){
-                oRowWinner = true;
-            }
+            if(rowCounter == 3) return true;
         }
 
-        return oRowWinner;
+        // Check columns
+        for(int i = 0; i < 3; i++){
+            int colCounter = 0;
+            for(int j = 0; j < 3; j++){
+                if(matrix[j][i] == 'O'){
+                    colCounter++;
+                }
+            }
+            if(colCounter == 3) return true;
+        }
+
+        // Check left diagonal
+        if(matrix[0][0] == 'O' && matrix[1][1] == 'O' && matrix[2][2] == 'O') return true;
+
+        // Check right diagonal
+        if(matrix[0][2] == 'O' && matrix[1][1] == 'O' && matrix[2][0] == 'O') return true;
+
+        // No win found
+        return false;
     }
 
     public Boolean isTie() {
-        return null;
+        boolean isTie = false;
+
+        if(isInFavorOfO() == false && isInFavorOfX() == false){
+            isTie = true;
+        }
+
+        return isTie;
     }
 
     public String getWinner() {
         String winner = "";
 
 
-        if(isInFavorOfO() && !isInFavorOfX()){
+        if(isInFavorOfO() == true){
             winner = "O";
-        } else if (!isInFavorOfO() && isInFavorOfX()) {
+        } else if (isInFavorOfX() == true) {
             winner = "X";
         }
         return winner;
